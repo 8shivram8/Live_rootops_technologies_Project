@@ -78,9 +78,15 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} RootOps Technologies. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <p className="text-muted-foreground text-sm">
+              © {new Date().getFullYear()} RootOps Technologies. All rights reserved.
+            </p>
+            <span className="hidden md:inline text-muted-foreground">•</span>
+            <p className="text-muted-foreground text-sm flex items-center gap-1">
+              Made with <span className="text-red-500 animate-pulse">❤️</span> in India 🇮🇳
+            </p>
+          </div>
           <div className="flex items-center gap-6">
             <Link to="#" className="text-muted-foreground text-sm hover:text-primary transition-colors">
               Privacy Policy
