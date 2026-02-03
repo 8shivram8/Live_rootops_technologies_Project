@@ -1,11 +1,141 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Mail, MapPin, Clock } from "lucide-react";
+
+interface TimeRowProps {
+  flagSrc: string;
+  country: string;
+  timezone: string;
+  tzCode: string;
+  timeZoneId: string;
+}
+
+const TimeRow: React.FC<TimeRowProps> = ({ flagSrc, country, timezone, tzCode, timeZoneId }) => {
+  const [time, setTime] = useState<string>("--:--:--");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+        timeZone: timeZoneId,
+      });
+      setTime(formatter.format(new Date()));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [timeZoneId]);
+
+  const gradients = [
+    "from-blue-500 to-cyan-500",
+    "from-purple-500 to-pink-500",
+    "from-orange-500 to-red-500",
+    "from-green-500 to-emerald-500",
+  ];
+
+  const gradientIndex = [
+    "Asia/Kolkata",
+    "Europe/London",
+    "Asia/Dubai",
+    "America/New_York",
+  ].indexOf(timeZoneId);
+
+  const gradient = gradients[Math.max(0, gradientIndex)];
+
+  return (
+    <div
+      className="group flex items-center justify-between gap-3 px-4 py-3 rounded-lg hover:bg-primary/5 transition-colors"
+      aria-label={`${country} time: ${time}`}
+    >
+      <div className="flex items-center gap-2 flex-1">
+        <img 
+          src={flagSrc} 
+          alt={`${country} flag`}
+          className="w-8 h-6 rounded object-cover"
+        />
+        <div className="flex flex-col gap-0.5">
+          <span className="text-foreground font-semibold text-xs">{country}</span>
+          <span className="text-muted-foreground text-[10px]">{timezone}</span>
+        </div>
+      </div>
+      <div
+        className="font-mono text-lg font-bold tracking-wider whitespace-nowrap"
+        style={{
+          backgroundImage: `linear-gradient(90deg, ${
+            gradient === "from-blue-500 to-cyan-500"
+              ? "#3b82f6, #a855f7, #06b6d4"
+              : gradient === "from-purple-500 to-pink-500"
+              ? "#a855f7, #ec4899, #f472b6"
+              : gradient === "from-orange-500 to-red-500"
+              ? "#f97316, #ef4444, #dc2626"
+              : "#10b981, #059669, #047857"
+          })`,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          textShadow: "0 0 15px rgba(59, 130, 246, 0.2)",
+          animation: "gradientFlow 6s ease-in-out infinite",
+        }}
+      >
+        {time}
+      </div>
+    </div>
+  );
+};
+
+const WorldClock = () => {
+  const timezones: TimeRowProps[] = [
+    {
+      flagSrc: "/flags/india.svg",
+      country: "India",
+      timezone: "IST",
+      tzCode: "IST",
+      timeZoneId: "Asia/Kolkata",
+    },
+    {
+      flagSrc: "/flags/gb.svg",
+      country: "United Kingdom",
+      timezone: "GMT/BST",
+      tzCode: "GMT",
+      timeZoneId: "Europe/London",
+    },
+    {
+      flagSrc: "/flags/uae.svg",
+      country: "UAE",
+      timezone: "GST",
+      tzCode: "GST",
+      timeZoneId: "Asia/Dubai",
+    },
+    {
+      flagSrc: "/flags/us.svg",
+      country: "United States",
+      timezone: "ET",
+      tzCode: "ET",
+      timeZoneId: "America/New_York",
+    },
+  ];
+
+  return (
+    <div className="flex flex-col gap-3">
+      <h4 className="text-foreground font-semibold text-sm">Global Time</h4>
+      <div className="space-y-1">
+        {timezones.map((tz) => (
+          <TimeRow key={tz.country} {...tz} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
@@ -74,6 +204,11 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
+          {/* Global Time Clock */}
+          <div className="flex justify-center">
+            <WorldClock />
+          </div>
         </div>
 
         {/* Bottom Bar */}
@@ -97,6 +232,26 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes gradientFlow {
+          0% {
+            backgroundImage: linear-gradient(90deg, #3b82f6, #a855f7, #06b6d4);
+          }
+          50% {
+            backgroundImage: linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7);
+          }
+          100% {
+            backgroundImage: linear-gradient(90deg, #3b82f6, #a855f7, #06b6d4);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          [style*="gradientFlow"] {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

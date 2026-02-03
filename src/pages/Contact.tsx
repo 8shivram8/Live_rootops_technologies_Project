@@ -61,19 +61,43 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you as soon as possible.",
+const onSubmit = async (data: ContactFormData) => {
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("http://65.2.143.109/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     });
-    
-    form.reset();
+
+    // ✅ Always read JSON
+    const result = await response.json();
+
+    // ✅ THIS IS THE IMPORTANT PART
+    if (result.success) {
+      toast.success("Message sent successfully!", {
+        description: result.message,
+      });
+
+      form.reset();
+    } else {
+      toast.error("Error sending message", {
+        description: result.error || "Something went wrong",
+      });
+    }
+  } catch (error) {
+    console.error("Frontend submit error:", error);
+    toast.error("Network error", {
+      description: "Unable to connect to server. Please try again later.",
+    });
+  } finally {
     setIsSubmitting(false);
-  };
+  }
+};
+
 
   return (
     <Layout>

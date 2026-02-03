@@ -18,24 +18,20 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Top Bar */}
-      <div className="bg-primary/10 border-b border-border/50 py-1.5">
-        <div className="container mx-auto px-4 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <span className="text-lg">🇮🇳</span>
-          <span>Proudly Building from India</span>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <nav className="bg-background/80 backdrop-blur-xl border-b border-border/50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">R</span>
+            <Link to="/" className="flex items-center gap-3 flex-shrink-0">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <img 
+                  src="/RootOps.png" 
+                  alt="RootOps Logo" 
+                  className="w-10 h-10 object-contain"
+                />
               </div>
-              <span className="text-xl font-bold text-foreground">
+              <span className="text-lg font-bold text-foreground hidden sm:inline">
                 RootOps<span className="text-primary">.</span>
               </span>
             </Link>

@@ -85,12 +85,16 @@ const Careers = () => {
               the right opportunity comes up.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSeafJaao4PI5C7VZwOEaJazu8ZP86cIxaXOfEr04_JKl8mCwQ/viewform?usp=publish-editor", "_blank")}
+              >
                 Share Your Profile
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button asChild variant="outline" size="lg" className="border-border hover:bg-secondary">
-                <Link to="/contact">Contact HR</Link>
+                <Link to="/hr-contact">Contact HR</Link>
               </Button>
             </div>
           </div>
