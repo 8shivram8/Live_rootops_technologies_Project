@@ -65,7 +65,7 @@ const onSubmit = async (data: ContactFormData) => {
   setIsSubmitting(true);
 
   try {
-    const response = await fetch("http://65.2.143.109/api/contact", {
+    const response = await fetch("https://rootops-backend.onrender.com/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
