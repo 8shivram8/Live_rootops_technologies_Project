@@ -192,7 +192,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>hello@rootops.tech</span>
+                <span>hello@rootopstechnologies.in</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground text-sm">
                 <MapPin className="h-4 w-4 text-primary" />

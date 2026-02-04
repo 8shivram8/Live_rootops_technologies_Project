@@ -31,7 +31,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "hello@rootops.tech",
+    value: "hello@rootopstechnologies.in",
     description: "We'll respond within 24 hours",
   },
   {

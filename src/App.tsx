@@ -1,8 +1,11 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import ScrollToTop from "@/components/ui/ScrollToTop";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import Pricing from "./pages/Pricing";
@@ -18,7 +21,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+
       <BrowserRouter>
+        {/* ✅ THIS FIXES THE SCROLL ISSUE */}
+        <ScrollToTop />
+
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<Products />} />
@@ -26,7 +33,8 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/hr-contact" element={<HRContact />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
+          {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
