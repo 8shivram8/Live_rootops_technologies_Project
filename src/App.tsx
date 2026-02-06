@@ -13,6 +13,9 @@ import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import HRContact from "./pages/HRContact";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+
 
 const queryClient = new QueryClient();
 
@@ -33,6 +36,9 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/hr-contact" element={<HRContact />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
